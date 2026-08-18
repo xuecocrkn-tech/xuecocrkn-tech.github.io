@@ -139,6 +139,14 @@ footer{border-top:1px solid var(--border); padding:48px 24px; position:relative;
   .js .reveal{transition:none; opacity:1; transform:none;}
 }
 
+.player-dock{position:fixed; left:0; right:0; bottom:0; z-index:100; display:flex; align-items:center; gap:10px; background:rgba(10,14,21,0.92); backdrop-filter:blur(10px); border-top:1px solid var(--border-bright); padding:8px 10px 8px 14px; transition:transform .3s ease;}
+.player-dock.closed{transform:translateY(100%);}
+.player-dock iframe{flex:1; display:block; border:none; height:96px;}
+.player-close{flex-shrink:0; width:30px; height:30px; display:flex; align-items:center; justify-content:center; background:none; border:1px solid var(--border-bright); border-radius:7px; color:var(--text-muted); cursor:pointer; transition:all .2s ease;}
+.player-close:hover{color:var(--accent-bright); border-color:var(--accent);}
+body.has-player-dock{padding-bottom:112px;}
+@media (max-width:560px){.player-dock iframe{height:80px;}}
+
 /* mobile nav */
 @media (max-width:760px){
   .nav-links{position:fixed; top:63px; left:0; right:0; background:var(--bg-soft); border-bottom:1px solid var(--border); flex-direction:column; align-items:flex-start; padding:20px 24px 24px; gap:16px; transform:translateY(-8px); opacity:0; pointer-events:none; transition:all .2s ease;}
@@ -230,6 +238,22 @@ footer{border-top:1px solid var(--border); padding:48px 24px; position:relative;
     <div class="footer-meta">© 2026</div>
   </div>
 </footer>
+
+<div class="player-dock" id="playerDock">
+  <iframe title="SyxarikiSMP — плейлист" scrolling="no" allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fuser-736147963%2Fsets%2Fnyan-mp3-nyan-pop&color=%23e0a03c&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false"></iframe>
+  <button class="player-close" id="playerClose" aria-label="Скрыть плеер">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+
+<script>
+document.body.classList.add('has-player-dock');
+document.getElementById('playerClose').addEventListener('click', function(){
+  document.getElementById('playerDock').classList.add('closed');
+  document.body.classList.remove('has-player-dock');
+});
+</script>
 
 <script>
 (function(){
